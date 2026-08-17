@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc [
+  <!ENTITY nbsp "&#160;">
+]>
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude"
+     category="info"
+     docName="draft-vicente-cnsa2-tls-readiness-profile-00"
+     ipr="trust200902"
+     submissionType="IETF"
+     xml:lang="en"
+     version="3">
+
+  <front>
+    <title abbrev="CNSA 2.0 TLS Readiness">CNSA 2.0 TLS Readiness Assessment Profile</title>
+    <seriesInfo name="Internet-Draft" value="draft-vicente-cnsa2-tls-readiness-profile-00"/>
+
+    <author initials="B." surname="Vicente" fullname="Brian Vicente">
+      <organization>Sanctum SecOps LLC</organization>
+      <address>
+        <postal><city>Pine City</city><region>NY</region><country>United States of America</country></postal>
+        <email>brian@sso-labs.com</email>
+        <uri>https://orcid.org/0009-0006-6395-5308</uri>
+      </address>
+    </author>
+
+    <date year="2026" month="August" day="16"/>
+    <area>Security</area>
+    <workgroup>TLS</workgroup>
+    <keyword>CNSA 2.0</keyword>
+    <keyword>TLS</keyword>
+    <keyword>readiness</keyword>
+    <keyword>assessment</keyword>
+    <keyword>compliance</keyword>
+
+    <abstract>
+      <t>This document defines a readiness assessment profile for CNSA 2.0 compliance of TLS deployments. It specifies a structured assessment procedure that evaluates a TLS endpoint's configuration, algorithm selection, and certificate chain against the CNSA 2.0 algorithm requirements, producing a machine-readable readiness report that operators can use to track migration progress and demonstrate compliance.</t>
+    </abstract>
+
+    <note title="Source and Archival" removeInRFC="true">
+      <t>
+        Source for this draft is maintained at
+        <eref target="https://github.com/Sanc-Admin/cnsa2-tls-readiness-profile">https://github.com/Sanc-Admin/cnsa2-tls-readiness-profile</eref>.
+        Author ORCID iD:
+        <eref target="https://orcid.org/0009-0006-6395-5308">https://orcid.org/0009-0006-6395-5308</eref>.
+        Reference implementation and JSON evidence: CygnetLib
+        (<eref target="https://github.com/sanctumsecopsmssp/CygnetLib">https://github.com/sanctumsecopsmssp/CygnetLib</eref>).
+      </t>
+    </note>
+
+    <note title="IPR Considerations" removeInRFC="true">
+      <t>
+        Sanctum IP Co (a Delaware corporation, assignee of Sanctum SecOps LLC) holds or
+        intends to file patent or other intellectual property rights covering subject matter described in this
+        document. By posting this Internet-Draft, the author submits to the IETF Trust the rights described
+        in BCP 78 and BCP 79. All intellectual property described in this document is owned by Sanctum IP Co,
+        128 Dry Run Rd, Pine City, NY 14871. Contact: brian@sso-labs.com.
+      </t>
+    </note>
+
+  </front>
+
+  <middle>
+
+    <section anchor="introduction" numbered="true">
+      <name>Introduction</name>
+      <t>
+        CNSA 2.0 <xref target="CNSA2"/> establishes the algorithm suite that United States
+        national security systems must use, with transition dates that drive
+        post-quantum adoption. TLS is a primary protocol affected by CNSA 2.0. This
+        document defines a readiness assessment profile: a procedure for evaluating a TLS
+        deployment's compliance with CNSA 2.0 and producing a structured readiness report.
+      </t>
+      <t>
+        This section will describe the CNSA 2.0 context, the assessment need, and the
+        relationship between this profile and the CyGnScrypt policy framework.
+      </t>
+    </section>
+
+    <section anchor="conventions" numbered="true">
+      <name>Conventions and Definitions</name>
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+        "OPTIONAL" in this document are to be interpreted as described in
+        BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they
+        appear in all capitals as shown here.
+      </t>
+    </section>
+
+    <section anchor="assessment-criteria" numbered="true">
+      <name>Assessment Criteria</name>
+      <t>
+        This section will define the assessment criteria: the CNSA 2.0-required TLS cipher
+        suites and key exchange methods, the certificate signature algorithm requirements,
+        and the transition-date constraints. Each criterion will be specified as a
+        machine-checkable rule over the TLS endpoint's negotiated parameters and
+        certificate chain.
+      </t>
+    </section>
+
+    <section anchor="assessment-procedure" numbered="true">
+      <name>Assessment Procedure</name>
+      <t>
+        This section will define the assessment procedure: how an assessor collects the
+        endpoint's TLS configuration (via handshake capture, configuration inspection, and
+        certificate chain retrieval), how each criterion is evaluated, and how the results
+        are aggregated into a readiness report. The procedure will produce a per-criterion
+        pass/fail and an overall readiness status.
+      </t>
+    </section>
+
+    <section anchor="report-format" numbered="true">
+      <name>Readiness Report Format</name>
+      <t>
+        This section will specify the machine-readable readiness report format: a JSON
+        structure carrying the assessed endpoint identifier, the assessment date, the
+        per-criterion results, the overall status, and references to the CNSA 2.0
+        requirements that drove any failures. The format will support trend tracking across
+        repeated assessments.
+      </t>
+    </section>
+
+    <section anchor="security" numbered="true">
+      <name>Security Considerations</name>
+      <t>
+        This section will address the security of the assessment itself: the integrity of
+        the captured configuration, the risk of assessing a non-representative handshake,
+        and the confidentiality of the readiness report (which reveals endpoint
+        configuration).
+      </t>
+    </section>
+
+    <section anchor="iana" numbered="true">
+      <name>IANA Considerations</name>
+      <t>
+        This document has no IANA actions.
+      </t>
+    </section>
+
+    <section anchor="acknowledgements" numbered="true">
+      <name>Acknowledgements</name>
+      <t>
+        The author thanks the members of the relevant IETF working groups for their
+        review and feedback. Particular thanks to colleagues at Sanctum SecOps LLC for
+        technical discussion and to the broader IETF community for continued review of
+        post-quantum migration and authorization posture work.
+      </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+    </references>
+
+    <references title="Informative References">
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8446.xml"/>
+      <reference anchor="CNSA2">
+        <front><title>CNSA 2.0 Cybersecurity Advisory</title>
+        <author><organization>NSA</organization></author>
+        <date year="2022" month="September"/></front>
+      </reference>
+    </references>
+  </back>
+
+</rfc>
